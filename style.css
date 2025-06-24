@@ -4,7 +4,7 @@
 }
 
 .container {
-    max-width: 700px;
+    max-width: 900px;
     min-width: 400px;
     display: flex;
     background-color: dimgrey;
@@ -19,14 +19,15 @@
     flex-direction: column;
     align-items:end;
     background-color: #828282;
-    border: 1px solid blue;
+    border: 1px solid whitesmoke;
     border-radius: 25px;
     width: 100%;
+    padding-right: 25px;
 }
 
 #current-calculation {
     font-size: 14px;
-    color: grey;
+    color: white;
 }
 
 #sum {
@@ -47,7 +48,8 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
-    flex: 1 1 calc(25% - 1rem);
+    flex: 1 1 calc(25% - 30px);
+    border: .3px solid white;
 }
 
 .top {
@@ -57,3 +59,9 @@
 .orange {
     background-color: orange;
 }
+
+button {
+    all: unset;
+    cursor: pointer;
+    width: 20%;
+  }
