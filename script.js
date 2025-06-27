@@ -1,112 +1,92 @@
 const currentCalculation = document.querySelector("#current-calculation");
 const sum = document.querySelector("#sum");
+const buttons = document.querySelectorAll("button");
 
-const button = document.querySelectorAll("button");
-
-function addition (a, b) {
-    return a + b
-}
-
-function subtraction (a,b) {
-    return a - b
-}
-
-function multiplication (a,b) {
-    return a * b
-}
-
-function division (a,b) {
-    return a/b
-}
-
-let displayValue = "0";
-let firstOperand = null;
-let secondOperand = null;
-let operator = null;
-let waitingForSecondOperand = false;
-
-function operate (operator, a, b) {
+/*
+function operations (operator,a,b) {
     if (operator === "+") {
-        return addition (a,b);
-    } else if (operator === "-") {
-        return subtraction (a,b);
+        return a+b;
+    } else if (operator ==="-") {
+        return a-b;
     } else if (operator === "*") {
-        return multiplication (a,b);
-    }else if (operator === "/") {
-        return division (a,b);
+        return a * b;
+    } else if (operator === "/") {
+        return a/b;
     } else {
         return null;
     }
 }
 
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const value = btn.textContent;
+*/
 
-        if (!isNaN(value) || value === ".") {
-            // Digit or decimal
-            if (waitingForSecondOperand) {
-                displayValue = value;
-                waitingForSecondOperand = false;
-            } else {
-                displayValue = displayValue === "0" ? value : displayValue + value;
-            }
-            updateDisplay();
-        } 
-        else if (value === "+" || value === "-" || value === "x" || value === "÷") {
-            if (firstOperand === null) {
-                firstOperand = Number(displayValue);
-            } else if (operator) {
-                const result = operate(operator, firstOperand, Number(displayValue));
-                displayValue = String(result);
-                firstOperand = result;
-                updateDisplay();
-            }
+let firstOperand = "0";
+let secondOperand = null;
+let operator = null;
 
-            operator = (value === "x") ? "*" : (value === "÷") ? "/" : value;
-            waitingForSecondOperand = true;
-        } 
-        else if (value === "=") {
-            if (operator && firstOperand !== null) {
-                const result = operate(operator, firstOperand, Number(displayValue));
-                displayValue = String(result);
-                updateDisplay();
-                firstOperand = null;
-                operator = null;
-                waitingForSecondOperand = false;
+function multiplication (a,b) {
+    return a*b;
+}
+function division (a,b) {
+    return a/b;
+}
+function addition (a,b) {
+    return a+b;
+}
+function subtraction (a,b) {
+    return a-b;
+}
+
+function operate (operator, a, b) {
+    if (operator === "*") {
+        return multiplication(a,b);
+    } else if (operator ==="/") {
+        return division(a,b);
+    } else if (operator === "+") {
+        return addition (a,b);
+    } else if (operator === "-") {
+        return subtraction (a,b);
+    } else {
+        return null;
+    }
+}
+
+console.log(operate("*", 7, 4));
+console.log(operate("/", 7, 4));
+console.log(operate("+", 7, 4));
+console.log(operate("-", 7, 4));
+console.log(operate("s", 7, 4));
+
+
+displayValue = "0";
+
+sum.textContent = displayValue;
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const value = button.textContent;
+
+        if (["*","/","+","-"].includes(value)) {
+            if (firstOperand === "") {
+                firstOperand = displayValue;
             }
-        } 
-        else if (value === "AC") {
-            displayValue = "0";
-            firstOperand = null;
-            operator = null;
-            waitingForSecondOperand = false;
-            updateDisplay();
-        } 
-        else if (value === "+/-") {
-            displayValue = String(Number(displayValue) * -1);
-            updateDisplay();
-        } 
-        else if (value === "%") {
-            displayValue = String(Number(displayValue) / 100);
-            updateDisplay();
+            operator = value;
+            displayValue = "";
+        } else if (value === "=") {
+            secondOperand = displayValue;
+
+            let result = operate(operator, parseFloat(firstOperand), parseFloat(secondOperand));
+            displayValue = result.toString();
+            sum.textContent = displayValue;
         }
-    });
-});
-
-// Initialize display
-updateDisplay();
-/*
-button.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const value = btn.textContent;
-
-        if (displayValue ==="0") {
-            displayValue = value
-        } else {
-            displayValue += value;
-        }
-        sum.textContent = displayValue;
     })
 })
 
+/* 
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const value = button.textContent;
+        displayValue += value;
+        sum.textContent = displayValue;
+    })
+})
+*/
