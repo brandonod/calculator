@@ -40,6 +40,7 @@ function operate(operator,a,b) {
 buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
         const value = btn.textContent;
+        currentCalculation.textContent = btn.textContent;
         
         if (["+", "-", "/", "*"].includes(btn.textContent)) {
             firstOperand = displayValue;
@@ -51,7 +52,11 @@ buttons.forEach((btn) => {
             sum.textContent = result;
             displayValue = result.toString();
 
-          }   else {
+          }  else if (value === "AC") {
+            displayValue = "0"
+            currentCalculation.textContent = "0";
+            sum.textContent = displayValue;
+          } else {
             if (displayValue ==="0") {
                 displayValue = value;
             } else {
